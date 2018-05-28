@@ -86,3 +86,14 @@ readFile1('file1.txt', 'utf-8').then(function (file1) {
 }).then(function () {
     console.log(file2)
 })
+
+var smooth = function (method) {
+    return function () {
+        let deferred = new Deferred()
+        let args = Array.prototype.slice.call(arguments, 0)
+        args.push(deferred.callback())
+        method.apply(null, args)
+        return deferred.promise
+    }
+}
+
