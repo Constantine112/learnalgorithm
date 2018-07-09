@@ -1,3 +1,9 @@
+/**
+ * @description
+ * @author shenzekun
+ * @param {*} s
+ * @returns
+ */
 function init(s) {
         var len = s.length,
             s_new = [];
@@ -223,4 +229,36 @@ var longestCommonPrefix = function(strs) {
     }
     console.log(str);
     return str;
+};
+
+/**
+ * 有效的括号
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+    //初始化判断值
+    let valid = true,
+        temp = []
+    
+    //利用循环进行判断
+    while (s.length > 0) {
+        //对首字符进行判断
+        if (s[0] === '(' || s[0] === "{" || s[0] === "[") {
+            //将首字符放入容器
+            temp.push(s[0])
+            s = s.slice(1)
+        } else {
+            if ((s[0] == ')' && temp[temp.length - 1] == '(') || (s[0] == ']' && temp[temp.length - 1] == '[') || (s[0] == '}' && temp[temp.length - 1] == '{')) {
+                s = s.slice(1)
+                temp.pop()
+            } else {
+                valid = false
+                break
+            }
+        }
+        
+    }
+    
+    return valid
 };
