@@ -241,6 +241,9 @@ var isValid = function(s) {
     let valid = true,
         temp = []
     
+    if (s.length == 1) {
+        return false
+    }
     //利用循环进行判断
     while (s.length > 0) {
         //对首字符进行判断
@@ -259,6 +262,79 @@ var isValid = function(s) {
         }
         
     }
-    
+    if (temp.length > 0 && s.length == 0) {
+        valid = false
+    }
     return valid
+};
+
+/**三数之和
+ * 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function(nums) {
+    nums.sort(function (a,b) {
+        return a-b
+    })
+    let res = []
+
+    for (let k = 0; k < nums.length; ++k) {
+        if (nums[k] > 0) break;
+        if (k > 0 && nums[k] == nums[k - 1]) continue;
+        let target = 0 - nums[k];
+        let i = k + 1, j = nums.length - 1;
+        while (i < j) {
+            if (nums[i] + nums[j] == target) {
+                res.push([nums[k], nums[i], nums[j]]);
+                while (i < j && nums[i] == nums[i + 1]) ++i;
+                while (i < j && nums[j] == nums[j - 1]) --j;
+                ++i; --j;
+            } else if (nums[i] + nums[j] < target) ++i;
+                else --j;
+        }
+    }
+    return res
+    // let temp = [],
+    //     isHave = false
+
+    // if (nums.length < 3) {
+    //     return temp
+    // }
+
+    // for (let i = 0; i < nums.length - 2; i++) {
+    //     for (let j = i + 1; j < nums.length - 1; j++) {
+    //         for (let k = j +1; k < nums.length; k++)
+    //             if ((nums[i] + nums[j] + nums[k]) == 0) {
+    //                 for (let l = 0; l < temp.length; l++) {
+    //                     let t = []
+    //                     t.push(nums[i])
+    //                     t.push(nums[j])
+    //                     t.push(nums[k])
+    //                     for (let o = 0; o < 3; o++) {
+    //                         for (let h = 0; h < 3; h++) {
+    //                             if (temp[l][o] == t[h]) {
+    //                                 t.splice(h, 1)
+    //                             }
+                                
+    //                         }
+    //                     }
+    //                     if (t.length == 0) {
+    //                         isHave = true
+    //                     }
+    //                 }
+    //                 if (isHave == false) {
+    //                     let a = []
+    //                     a.push(nums[i])
+    //                     a.push(nums[j])
+    //                     a.push(nums[k])
+
+    //                     temp.push(a)
+    //                 }
+    //                 isHave = false
+                    
+    //             }
+    //     }
+    // }
+    // return temp
 };
