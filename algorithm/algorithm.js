@@ -338,3 +338,74 @@ var threeSum = function(nums) {
     // }
     // return temp
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function(l1, l2) {
+    let  head = new ListNode(),
+         now1 = head
+    head.next = null
+    while (l1 || l2) {
+        now1.next = new ListNode()
+        now1 = now1.next
+        if (l1.val <= l2.val) {
+            now1.val = l1.val
+            l1 = l1.next
+        } else {
+            now1.val = l2.val
+            l2 = l2.next
+        }
+
+    }
+
+    if (l1) {
+        while (l1) {
+            now1.next = new ListNode()
+            now1 = now1.next
+            now1.val = l1.val
+            l1 = l1.next
+        }
+    }
+    
+    if (l2) {
+        while (l2) {
+            now1.next = new ListNode()
+            now1 = now1.next
+            now1.val = l2.val
+            l2 = l2.next
+        }
+    }
+    
+    head = head.next
+    return head
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function(nums) {
+
+    
+    for (let i = 0; i < nums.length; i++) {
+        while (nums[i] === nums[i + 1]) {
+            for (let j = i; j < nums.length - 1; j++) {
+                nums[j] = nums[j + 1]
+            }
+            nums.length = nums.length - 1
+        }
+
+    }
+    
+    return nums.length
+};
