@@ -64,3 +64,49 @@ var client = dgram.createSocket('udp4')
 client.send(message, 0, message.length, 41234, 'localhost', function (err, bytes) {
     client.close()
 })
+
+/**
+ * 从http到websocket的转变
+ */
+
+ var WebSocket = function (url) {
+    //伪代码，解析ws://127.0.0.1:12010/updates,用于请求
+    this.options = parseUrl(url)
+    this.connect()
+ }
+
+ WebSocket.prototype.onopen = function () {
+    //TODO
+ }
+
+ websocket.prototype.setSocket = function (socket) {
+    this.socket = socket
+ }
+
+ websocket.prototype.connect = function () {
+    let that = this
+    let key = new Buffer(this.options.protocolVersion + ' - ' + Date.now()).toString('base64')
+    let shasum = crypt.createHash('sha1')
+
+    let expected = shasum.update(key + '258EFA5-E914-47DA-95CA-c5ABODC85B11').digest('base64')
+
+    var option = {
+        port: this.options.port,
+        host: this.options.hostname,
+        headers: {
+            "connection": "Upgrade",
+            'Upgrade': 'websocket',
+            'Sec-Websocket-Version': this.options.protocolVersion,
+            'Sec-Websocket-Key': key
+        }
+    }
+    let req = http.requset(options)
+    req.end()
+
+    req.on('upgrade', function (res, socket, upgradeHead) {
+        //连接成功
+        that.setSocket(socket)
+        // 触发open事件
+        that.onopen()
+    })
+ }
