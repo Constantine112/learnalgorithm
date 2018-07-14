@@ -409,3 +409,26 @@ var removeDuplicates = function(nums) {
     
     return nums.length
 };
+
+/**
+ * 整数装换罗马数
+ * @param {number} num
+ * @return {string}
+ */
+var intToRoman = function(num) {
+    if (num > 3999 || num < 0) return ''
+    let number = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1],
+        flag = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'],
+        str = '';
+    
+    //需要利用循环进行判断，实质就是将number数组减num不断的判断大小
+    for (let i = 0; i < number.length; i++) {
+        if (num < number[i]) continue
+        while (num >= number[i]) {
+            num -= number[i]
+            str += flag[i]
+        }
+        if (num == 0) break
+    }
+    return str
+};

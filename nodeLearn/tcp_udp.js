@@ -110,3 +110,53 @@ client.send(message, 0, message.length, 41234, 'localhost', function (err, bytes
         that.onopen()
     })
  }
+
+
+/**
+* 通过TLS创建一个安全的TCP服务
+*/
+var tls = require('tls')
+var fs = require('fs')
+
+var options = {
+    key: fs.readFileSync('./keys/server.key'),
+    cert: fs.readFileSync('./keys/server.crt'),
+    requestCert: true,
+    ca: [ fs.readFileSync('./keys/ca.crt') ]
+}
+
+var server = tls.createServer(options, function (stream) {
+    console.log('server connected', sream.authorized ? 'authorized' : 'unauthorized')
+    stream.write('welcome!\n')
+    stream.setEncoding('utf8')
+    stream.pipe(stream)
+})
+server.listen(8000, function () {
+    console.log('server bound')
+})
+
+/**
+* TLS客户端
+*/
+var tls = require("tls")
+var fs = require('fs')
+
+var options = {
+    key: fs.readFileSync('./keys/server.key'),
+    cert: fs.readFileSync('./keys/server.crt'),
+    ca: [ fs.readFileSync('./keys/ca.crt') ]
+}
+
+var stream = tls.connect(8000, options, function () {
+    console.log('client connect', stream.authorized ? 'authorized' : 'unauthorized')
+    process.stdin.pipe(stream)
+})
+
+stream.setEncoding('utf8')
+stream.on('data', function (data) {
+    console.log(data)
+})
+
+stream.on('end', function () {
+    server.close()
+})
