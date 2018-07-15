@@ -432,3 +432,16 @@ var intToRoman = function(num) {
     }
     return str
 };
+(function() {
+
+var x = foo();
+
+var foo = function foo() {
+  return "foobar"
+};
+  return x;
+})();
+function hexCharCodeToStr(hexCharCodeStr) {
+    num = 15621467
+    return num.toString(16);
+}
