@@ -75,12 +75,12 @@ function draw(data) {
           return div;
         }
         let txt = "上车地点第", 
-            mouseoverTxt = txt + (i + 1) + '次，上车时间：' + data[i][4];
+            mouseoverTxt = txt + (i + 1) + '次，上车时间：' + data[i][4] + ',坐标: ' + data[i][0] + ', ' + data[i][1];
         var myCompOverlay = new ComplexCustomOverlay(new BMap.Point(data[i][0], data[i][1]), txt + (i + 1) + "次", mouseoverTxt);
         mp.addOverlay(myCompOverlay);
 
         txt = "下车地点第";
-        mouseoverTxt = txt + (i + 1) + '次，下车时间：' + data[i][5];
+        mouseoverTxt = txt + (i + 1) + '次，下车时间：' + data[i][5] + ',坐标: ' + data[i][2] + ', ' + data[i][3];
         var myCompOverlay = new ComplexCustomOverlay(new BMap.Point(data[i][2], data[i][3]), txt + (i + 1) + "次", mouseoverTxt);
         mp.addOverlay(myCompOverlay);
     }
@@ -185,7 +185,7 @@ function drawAll(data) {
     let goPoints = []
 
     for (let i = 0; i < data.length; i++) {
-        goPoints.push( [ data[i].GET_ON_LONGITUDE, data[i].GET_ON_LATITUDE, data[i].GET_OF_LONGITUDE, data[i].GET_OFF_LATITUDE, data[i].WORK_BEGIN_TIME, data[i].WORK_END_TIME] )
+        goPoints.push( [ data[i].GET_ON_LONGITUDE, data[i].GET_ON_LATITUDE, data[i].GET_OFF_LONGITUDE, data[i].GET_OFF_LATITUDE, data[i].WORK_BEGIN_TIME, data[i].WORK_END_TIME] )
         line.push(data[i].GPS)
     }
 
