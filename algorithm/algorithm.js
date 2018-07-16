@@ -432,16 +432,33 @@ var intToRoman = function(num) {
     }
     return str
 };
-(function() {
+// (function() {
 
-var x = foo();
+// var x = foo();
 
-var foo = function foo() {
-  return "foobar"
-};
-  return x;
-})();
+// var foo = function foo() {
+//   return "foobar"
+// };
+//   return x;
+// })();
 function hexCharCodeToStr(hexCharCodeStr) {
     num = 15621467
     return num.toString(16);
 }
+
+
+/**
+ * 移除元素
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+var removeElement = function(nums, val) {
+    for (let i = 0; i < nums.length; i++) {
+        if (val === nums[i]) {
+            nums.splice(i, 1)
+            i--
+        }
+    }
+    return nums.length
+};

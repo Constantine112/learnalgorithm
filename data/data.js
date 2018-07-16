@@ -1,4 +1,4 @@
-
+// 百度地图
     // 百度地图API功能
     var mp = new BMap.Map("allmap");
     mp.centerAndZoom(new BMap.Point(113.332324, 23.136326), 15);
@@ -22,6 +22,8 @@
     // var myCompOverlay = new ComplexCustomOverlay(new BMap.Point(113.332324, 23.136326), "上车地点" + '1',mouseoverTxt);
 
     // mp.addOverlay(myCompOverlay);
+
+//画覆盖点函数
 function draw(data) {
     for (let i = 0; i < data.length; i++) {
         ComplexCustomOverlay.prototype.initialize = function(map){
@@ -73,16 +75,56 @@ function draw(data) {
           return div;
         }
         let txt = "上车地点第", 
-            mouseoverTxt = txt + (i + 1) + '次';
+            mouseoverTxt = txt + (i + 1) + '次，上车时间：' + data[i][4];
         var myCompOverlay = new ComplexCustomOverlay(new BMap.Point(data[i][0], data[i][1]), txt + (i + 1) + "次", mouseoverTxt);
         mp.addOverlay(myCompOverlay);
 
         txt = "下车地点第";
-        mouseoverTxt = txt + (i + 1) + '次';
+        mouseoverTxt = txt + (i + 1) + '次，下车时间：' + data[i][5];
         var myCompOverlay = new ComplexCustomOverlay(new BMap.Point(data[i][2], data[i][3]), txt + (i + 1) + "次", mouseoverTxt);
         mp.addOverlay(myCompOverlay);
     }
 }
+// 画路线函数 
+function paintline(data, color) {
+    var sy = new BMap.Symbol(BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW, {
+        // scale: 0.6,//图标缩放大小
+        strokeColor:"#" + color,//设置矢量图标的线填充颜色
+        strokeWeight: '2',//设置线宽
+        fillOpacity: 0,
+        strokeOpacity : 0.1, //线宽
+    });
+    var icons = new BMap.IconSequence(sy, '10', '30');
+    // 创建polyline对象
+    // var pois = [
+    //     new BMap.Point(116.350658,39.938285),
+    //     new BMap.Point(116.386446,39.939281),
+    //     new BMap.Point(116.389034,39.913828),
+    //     new BMap.Point(116.442501,39.914603)
+    // ];
+    let pois = []
+    for (let i = 0; i < data.length; i++) {
+        pois.push(new BMap.Point(data[i].LONGITUDE,data[i].LATITUDE))
+    }
+    var polyline =new BMap.Polyline(pois, {
+       enableEditing: false,//是否启用线编辑，默认为false
+       enableClicking: true,//是否响应点击事件，默认为true
+       icons:[icons],
+       strokeWeight:'8',//折线的宽度，以像素为单位
+       strokeOpacity: 0.8,//折线的透明度，取值范围0 - 1
+       strokeColor:"#" + color //折线颜色
+    });
+      //增加折线
+      mp.addOverlay(polyline);  
+}
+function paint(data) {
+    for (let i = 0; i < data.length; i++) {
+        let num = 15621000 + i * 80; 
+        // div.style.backgroundColor = "#" + num.toString(16);//EE5D5B
+        paintline(data[i], num.toString(16))
+    }  
+}
+// paintline()
 // draw([[
 //             "113.243492",
 //             "23.114299",
@@ -100,7 +142,7 @@ var select = document.querySelector("#select")
 // 画图
 select.addEventListener('change', function (e) {
     mp.clearOverlays();
-    requestAjax(this.options[this.options.selectedIndex].value, '/id/detail/' + this.options[this.options.selectedIndex].value, draw)
+    requestAjax(this.options[this.options.selectedIndex].value, '/id/detail/' + this.options[this.options.selectedIndex].value, drawAll)
     // console.log(this.options[this.options.selectedIndex].value)
 }, false)
 var url = 'http://192.168.1.100:8086'
@@ -135,4 +177,20 @@ function init () {
         requestAjax(data[0], '/id/detail/' + data[0], draw)
     }) 
 }
-init()
+// init()
+function drawAll(data) {
+    //用于画出路线
+    let line = []
+    //用于画出开始和下车的地点
+    let goPoints = []
+
+    for (let i = 0; i < data.length; i++) {
+        goPoints.push( [ data[i].GET_ON_LONGITUDE, data[i].GET_ON_LATITUDE, data[i].GET_OF_LONGITUDE, data[i].GET_OFF_LATITUDE, data[i].WORK_BEGIN_TIME, data[i].WORK_END_TIME] )
+        line.push(data[i].GPS)
+    }
+
+    draw(goPoints)
+    paint(line)
+}
+drawAll(datas.data)
+console.log(datas)
