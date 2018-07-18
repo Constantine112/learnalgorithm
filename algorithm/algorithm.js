@@ -462,3 +462,38 @@ var removeElement = function(nums, val) {
     }
     return nums.length
 };
+
+
+/**
+ * 电话号码的字母组合算法
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function(digits) {
+    let numberArray = [[], ['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i'], ['j', 'k', 'l'], ['m', 'n', 'o'], ['p', 'q', 'r', 's'], ['t', 'u','v'], ['w','x','y', 'z']]
+
+    if (!digits || digits.length == 0) return []
+
+    let array = []
+
+    for (let i = 0; i < digits.length; i++) {
+        array.push(numberArray[parseInt(digits[i]) - 1])
+    }
+
+    let strArray = []
+    //利用已经生成的字符继续生成字符
+    for (let i = 0; i < array[0].length; i++) {
+        strArray.push(array[0][i])
+    }
+    for (let i = 1; i < array.length; i++) {
+        //开始赋值
+        let nowArray = []
+        for (let k = 0; k < strArray.length; k++) {
+            for (let j = 0; j < array[i].length; j++) {
+                nowArray.push(strArray[k] + array[i][j])
+            }
+        }
+        strArray = nowArray     
+    }
+    return strArray
+};
