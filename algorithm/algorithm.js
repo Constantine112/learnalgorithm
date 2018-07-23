@@ -561,8 +561,66 @@ function ListNode(val) {
     this.val = val;
     this.next = null;
 }
-a = new ListNode(1)
-a.next = new ListNode(2)
-a.next.next = new ListNode(3)
-a.next.next.next = new ListNode(4)
-swapPairs(a)
+// a = new ListNode(1)
+// a.next = new ListNode(2)
+// a.next.next = new ListNode(3)
+// a.next.next.next = new ListNode(4)
+// swapPairs(a)
+
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+var strStr = function(haystack, needle) {
+    let position = -1
+    
+    position = haystack.indexOf(needle)
+    
+    return position
+};
+
+/**搜索插入位置
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var searchInsert = function(nums, target) {
+    let str = nums.indexOf(target)
+    if (str >= 0) {
+        
+    } else {
+        let i = 0;
+        for (; i < nums.length; i++) {
+            if (nums[i] > target) {
+                str = i
+                break
+            }
+        }
+        if (str == -1) {
+            str = nums.length
+        }
+    }
+
+    return str
+};
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function(height) {
+    let left = 0,
+        right = height.length - 1,
+        maxArea = 0;
+
+    while (left < right) {
+        maxArea = Math.max(maxArea, Math.min(height[left], height[right]) * (right - left))
+
+        if (height[left] > height[right]) {
+            right--
+        } else {
+            left++
+        }
+    }
+}

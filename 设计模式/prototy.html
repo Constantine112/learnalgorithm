@@ -27,7 +27,7 @@
     <!-- <link  rel="stylesheet" href="../css/normalize.css"> -->
 </head>
 <body>
-
+<div id="div1">11111111</div>
 <script>
 // var curring = function ( fn ) {
 //     var args = []
@@ -76,20 +76,40 @@
 //     push( arguments, 4 )
 //     console.log( arguments )
 // })(1, 2, 3)
-Function.prototype.uncurring = function () {
-    var self = this
+// Function.prototype.uncurring = function () {
+//     var self = this
+//     return function () {
+//         var obj = Array.prototype.shift.call( arguments )
+//         return self.apply( obj, arguments )
+//     }
+// }
+// var push = Function.prototype.uncurring()
+// var obj = {
+//     "length": 1,
+//     "0": 1
+// }
+// push( obj, 2 )
+// console.log(obj)
+var getSingle = function (fn) {
+    var result 
     return function () {
-        var obj = Array.prototype.shift.call( arguments )
-        return self.apply( obj, arguments )
+        return result || (result = fn.apply(this, arguments))
     }
 }
-var push = Function.prototype.uncurring()
-var obj = {
-    "length": 1,
-    "0": 1
+var bindEvent = getSingle (function (){
+    document.getElementById('div1').onclick = function () {
+        alert('click')
+    }
+    return true
+})
+
+var render = function () {
+    console.log ('开始渲染')
+    bindEvent()
 }
-push( obj, 2 )
-console.log(obj)
+render()
+render()
+render()
 </script>
 </body>
 </html>
