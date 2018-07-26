@@ -624,3 +624,75 @@ var maxArea = function(height) {
         }
     }
 }
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var searchRange = function(nums, target) {
+    let index = [-1, -1]
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] == target) {
+           index = pushArr(index, i)
+        }
+    }
+    return index
+};
+// var pushArr = function (index, changeIndex) {
+//     index[0] = changeIndex
+//     index[1] = changeIndex
+//     pushArr = function (indexs, changeIndexx) {
+//         indexs[1] = changeIndexx
+//         return indexs
+//     }
+//     return index
+// }
+var pushArr = function (index, changeIndex) {
+    if (index[0] == -1) {
+        index[0] = changeIndex
+        index[1] = changeIndex
+    } else {
+        index[1] = changeIndex
+    }
+    return index
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function(nums) {
+    if (nums.length == 1) {
+        return nums[0]
+    }
+    let sum = null
+    sum = nums[0]
+    
+    let max = sum
+    
+    for (let i = 0; i < nums.length; i++) {// 子序列左端点
+        sum = 0;
+        for (let j = i; j < nums.length; j++) {// 子序列右端点
+            sum += nums[j];// 这里就相当于每次根据前一次的序列来计算新的序列
+            if (sum > max)
+                max = sum;
+        }
+    }    
+    return max
+};
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLastWord = function(s) {
+    let total = s.split(" ")
+    let max = total[0].length
+    for (let i = 1; i < total.length; i++) {
+        if (total[i].length > 0) {
+            max = total[i].length
+        }
+    }
+    return max
+};
