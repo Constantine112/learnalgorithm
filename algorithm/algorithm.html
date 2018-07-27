@@ -1,215 +1,251 @@
 
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
-<head>
-    <meta charset="utf-8">
-    <title>文档标题</title>
-    
-    <!-- 360 使用Google Chrome Frame -->
-    <meta name="renderer" content="webkit">
-    
-    <!-- 优先使用 IE 最新版本和 Chrome -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    
-    <!-- 开启响应式 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- favicon，可更改图片类型 -->
-    <link rel="shortcut icon" href="/favicon.ico" />
-   <style type="text/css">
-       /**/
-       /**  **/
-       /*end*/
-   </style>
-    <!-- 重设css -->
-    <!-- <link  rel="stylesheet" href="../css/normalize.css"> -->
-</head>
-<body>
-    <!-- 轮播 -->
-    <ul><li></li></ul>
-    <!-- end轮播 -->
-    <!-- <script src="../js/jquery_3.2.1/jquery_3.2.1.min.js"></script> -->
-    <script src="./algorithm.js"></script>
-<!--     <script type="text/javascript">
-        var a = {
-            c: 3
-        }
-        b = a
-        console.log(a)
-        b.c = 4
-        console.log(a)
-
-        var color = 'green'
-        var test = {
-            color:'blue',
-            getColor: function() {
-                var color = 'red'
-                alert(this.color)
+    <head>
+        <meta charset="utf-8">
+        <title>文档标题</title>
+        
+        <!-- 360 使用Google Chrome Frame -->
+        <meta name="renderer" content="webkit">
+        
+        <!-- 优先使用 IE 最新版本和 Chrome -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        
+        <!-- 开启响应式 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- favicon，可更改图片类型 -->
+        <link rel="shortcut icon" href="/favicon.ico" />
+       <style type="text/css">
+           /**/
+           /**  **/
+           /*end*/
+       </style>
+        <!-- 重设css -->
+        <!-- <link  rel="stylesheet" href="../css/normalize.css"> -->
+    </head>
+    <body>
+        <!-- 轮播 -->
+        <ul><li></li></ul>
+        <!-- end轮播 -->
+        <!-- <script src="../js/jquery_3.2.1/jquery_3.2.1.min.js"></script> -->
+        <script src="./algorithm.js"></script>
+    <!--     <script type="text/javascript">
+            var a = {
+                c: 3
             }
-        }
-        var getColor = test.getColor
-        getColor()
-        test.getColor()
-    </script> -->
-<!--     <script type="text/javascript">
-        function (callback) {
-            var name;
-            return {
-                setName: function() {
-                    this.name = arguments[0]
+            b = a
+            console.log(a)
+            b.c = 4
+            console.log(a)
+
+            var color = 'green'
+            var test = {
+                color:'blue',
+                getColor: function() {
+                    var color = 'red'
+                    alert(this.color)
                 }
             }
-        }
-    class Draw {
-        constructor(el) {
-            this.el = el
-            this.canvas = document.getElementById(this.el)
-            this.width = document.getElementById('footer').offsetWidth
-            this.height = document.getElementById('footer').offsetHeight -30
-            document.getElementById(this.el).setAttribute('width', this.width);
-            document.getElementById(this.el).setAttribute('height', this.height);
-            this.cxt = this.canvas.getContext('2d')
-            // this.stage_info = canvas.getBoundingClientRect()
-            this.path = {
-                beginX: 0,
-                beginY: 0,
-                endX: 0,
-                endY: 0
-            }
-        }
-        init (e, process, red, obj, allGreen)  {
-
-            //速度
-            let speed = Math.floor( (this.width - 160) / (obj.length - 1) )
-            //点的位置
-            let loactions = 80
-            let  l = 0
-
-            //字的大小
-            this.cxt.font="14px Arial"
-            
-            // 开始初始化的图
-            this.cxt.beginPath();
-
-            // if (red = 0) {
-                //线的颜色
-                if (allGreen == 1) {
-                    // this.cxt.strokeStyle = "#1AAD19"
-                } else {
-                    this.cxt.strokeStyle = "#595959"
+            var getColor = test.getColor
+            getColor()
+            test.getColor()
+        </script> -->
+    <!--     <script type="text/javascript">
+            function (callback) {
+                var name;
+                return {
+                    setName: function() {
+                        this.name = arguments[0]
+                    }
                 }
-                this.cxt.moveTo(loactions, 60)
-                this.cxt.lineTo(this.width-80, 60)
-            // } else {
-            //     //线的颜色
-            //     this.cxt.strokeStyle = "#f01819"
-            //     this.cxt.moveTo(loactions, 60)
-            //     this.cxt.lineTo(this.width-80, 60)
-            // }
-            
-            //循环的画出圆
-            for (let i = 0; i < obj.length; i++) {
-                this.cxt.arc(loactions, 60, 8, 0, Math.PI*2)
-                this.cxt.fillText(obj[i].name, loactions - 30, 40)
-                loactions = loactions + speed
             }
-            this.cxt.stroke()
-            this.cxt.closePath()
-
-            this.cxt.beginPath()
-            this.cxt.fillStyle="#1AAD19"
-            this.cxt.strokeStyle = "#1AAD19"
-            // 画出达到的步骤
-            loactions = 80
-
-            for (let i = 0; i < process; i++) {
-                this.cxt.arc(loactions, 60, 5, 0, Math.PI*2)
-                // this.cxt.arc(loactions, 60, 8, 0, Math.PI*2)
-                this.cxt.fillText(obj[i].name, loactions - 30, 40)
-                // this.cxt.fillText(obj[i].time, loactions - 65, 90)
-                loactions = loactions + speed
-                l = i
+        class Draw {
+            constructor(el) {
+                this.el = el
+                this.canvas = document.getElementById(this.el)
+                this.width = document.getElementById('footer').offsetWidth
+                this.height = document.getElementById('footer').offsetHeight -30
+                document.getElementById(this.el).setAttribute('width', this.width);
+                document.getElementById(this.el).setAttribute('height', this.height);
+                this.cxt = this.canvas.getContext('2d')
+                // this.stage_info = canvas.getBoundingClientRect()
+                this.path = {
+                    beginX: 0,
+                    beginY: 0,
+                    endX: 0,
+                    endY: 0
+                }
             }
+            init (e, process, red, obj, allGreen)  {
 
-            
-            if (red == 1) {
-                this.cxt.fill()
+                //速度
+                let speed = Math.floor( (this.width - 160) / (obj.length - 1) )
+                //点的位置
+                let loactions = 80
+                let  l = 0
+
+                //字的大小
+                this.cxt.font="14px Arial"
+                
+                // 开始初始化的图
+                this.cxt.beginPath();
+
+                // if (red = 0) {
+                    //线的颜色
+                    if (allGreen == 1) {
+                        // this.cxt.strokeStyle = "#1AAD19"
+                    } else {
+                        this.cxt.strokeStyle = "#595959"
+                    }
+                    this.cxt.moveTo(loactions, 60)
+                    this.cxt.lineTo(this.width-80, 60)
+                // } else {
+                //     //线的颜色
+                //     this.cxt.strokeStyle = "#f01819"
+                //     this.cxt.moveTo(loactions, 60)
+                //     this.cxt.lineTo(this.width-80, 60)
+                // }
+                
+                //循环的画出圆
+                for (let i = 0; i < obj.length; i++) {
+                    this.cxt.arc(loactions, 60, 8, 0, Math.PI*2)
+                    this.cxt.fillText(obj[i].name, loactions - 30, 40)
+                    loactions = loactions + speed
+                }
                 this.cxt.stroke()
                 this.cxt.closePath()
+
                 this.cxt.beginPath()
-                loactions = loactions - speed
-                this.cxt.strokeStyle = "#f01819"
-                this.cxt.arc(loactions, 60, 8, 0, Math.PI*2)
+                this.cxt.fillStyle="#1AAD19"
+                this.cxt.strokeStyle = "#1AAD19"
+                // 画出达到的步骤
+                loactions = 80
+
+                for (let i = 0; i < process; i++) {
+                    this.cxt.arc(loactions, 60, 5, 0, Math.PI*2)
+                    // this.cxt.arc(loactions, 60, 8, 0, Math.PI*2)
+                    this.cxt.fillText(obj[i].name, loactions - 30, 40)
+                    // this.cxt.fillText(obj[i].time, loactions - 65, 90)
+                    loactions = loactions + speed
+                    l = i
+                }
+
+                
+                if (red == 1) {
+                    this.cxt.fill()
+                    this.cxt.stroke()
+                    this.cxt.closePath()
+                    this.cxt.beginPath()
+                    loactions = loactions - speed
+                    this.cxt.strokeStyle = "#f01819"
+                    this.cxt.arc(loactions, 60, 8, 0, Math.PI*2)
+                    this.cxt.closePath()
+                    this.cxt.beginPath()
+                    this.cxt.fillStyle="#f01819"
+                    this.cxt.strokeStyle = "#f01819"
+                    
+                    this.cxt.arc(loactions, 60, 5, 0, Math.PI*2)
+                    this.cxt.fillText(obj[l].name, loactions - 30, 40)
+                    this.cxt.fillText(obj[l].time, loactions - 65, 90)
+                } else {
+                    // this.cxt.strokeStyle = "#1AAD19"
+                }
+                this.cxt.fill()
                 this.cxt.closePath()
                 this.cxt.beginPath()
-                this.cxt.fillStyle="#f01819"
-                this.cxt.strokeStyle = "#f01819"
-                
-                this.cxt.arc(loactions, 60, 5, 0, Math.PI*2)
-                this.cxt.fillText(obj[l].name, loactions - 30, 40)
-                this.cxt.fillText(obj[l].time, loactions - 65, 90)
-            } else {
-                // this.cxt.strokeStyle = "#1AAD19"
-            }
-            this.cxt.fill()
-            this.cxt.closePath()
-            this.cxt.beginPath()
-            this.cxt.fillStyle="#1AAD19"
-            this.cxt.strokeStyle = "#1AAD19"
-            loactions = 80
-            for (let i = 0; i < process; i++) {
-                // this.cxt.arc(loactions, 60, 5, 0, Math.PI*2)
-                this.cxt.arc(loactions, 60, 8, 0, Math.PI*2)
-                // this.cxt.fillText(obj[i].name, loactions - 30, 40)
-                // this.cxt.fillText(obj[i].time, loactions - 65, 90)
-                loactions = loactions + speed
-                l = i
-            }
+                this.cxt.fillStyle="#1AAD19"
+                this.cxt.strokeStyle = "#1AAD19"
+                loactions = 80
+                for (let i = 0; i < process; i++) {
+                    // this.cxt.arc(loactions, 60, 5, 0, Math.PI*2)
+                    this.cxt.arc(loactions, 60, 8, 0, Math.PI*2)
+                    // this.cxt.fillText(obj[i].name, loactions - 30, 40)
+                    // this.cxt.fillText(obj[i].time, loactions - 65, 90)
+                    loactions = loactions + speed
+                    l = i
+                }
 
-            this.cxt.stroke()
-            this.cxt.closePath()
-        }
-    }
-        var p = {
-            c: function() {
-                console.log('c');
+                this.cxt.stroke()
+                this.cxt.closePath()
             }
         }
-         
-        function Person() {}
-        Person.prototype.a = function() {
-            console.log("a");
-        }
-        Person.prototype.__proto__ = p;
-        Person.prototype.__proto__.b = function() {
-            console.log("b");
-        }
-        var person = new Person();
-        person.a(); // 自对象方法 a
-        person.b(); // 继承对象方法 b
-        person.c(); // 继承对象 p
-    </script> -->
-<!--     <script type="text/javascript">
-        function foo() {
-          this.name = 'foo'
-          this.sayHi = function () {
-            console.log('Say Hi')
-          }
-        }
+            var p = {
+                c: function() {
+                    console.log('c');
+                }
+            }
+             
+            function Person() {}
+            Person.prototype.a = function() {
+                console.log("a");
+            }
+            Person.prototype.__proto__ = p;
+            Person.prototype.__proto__.b = function() {
+                console.log("b");
+            }
+            var person = new Person();
+            person.a(); // 自对象方法 a
+            person.b(); // 继承对象方法 b
+            person.c(); // 继承对象 p
+        </script> -->
+    <!--     <script type="text/javascript">
+            function foo() {
+              this.name = 'foo'
+              this.sayHi = function () {
+                console.log('Say Hi')
+              }
+            }
 
-        foo.prototype.sayGoodBy = function () {
-          console.log('Say Good By')
-        }
+            foo.prototype.sayGoodBy = function () {
+              console.log('Say Good By')
+            }
 
-        let myPro = new foo()
+            let myPro = new foo()
 
-        console.log(myPro.name) // foo
-        console.log(myPro.hasOwnProperty('name')) // true
-        console.log(myPro.hasOwnProperty('hasOwnProperty')) // fasle
-        console.log(myPro.hasOwnProperty('sayHi')) // true
-        console.log(myPro.hasOwnProperty('sayGoodBy')) // false
-        console.log('sayGoodBy' in myPro) // true
-    </script> -->
-</body>
+            console.log(myPro.name) // foo
+            console.log(myPro.hasOwnProperty('name')) // true
+            console.log(myPro.hasOwnProperty('hasOwnProperty')) // fasle
+            console.log(myPro.hasOwnProperty('sayHi')) // true
+            console.log(myPro.hasOwnProperty('sayGoodBy')) // false
+            console.log('sayGoodBy' in myPro) // true
+        </script> -->
+    </body>
 </html>
 
+
+<!-- <!DOCTYPE html> -->
+<!-- <html lang="zh-cmn-Hans"> -->
+<!-- <head> -->
+    <!-- <meta charset="utf-8"> -->
+    <!-- <title>文档标题</title> -->
+    
+    <!-- 360 使用Google Chrome Frame -->
+    <!-- <meta name="renderer" content="webkit"> -->
+    
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> -->
+    
+    <!-- 开启响应式 -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    
+    <!-- SEO页面关键词 -->
+    <!-- <meta name="keywords" content="your keywords"> -->
+    
+    <!-- SEO页面描述 -->
+    <!-- <meta name="description" content="your description"> -->
+    
+    <!-- favicon，可更改图片类型 -->
+    <!-- <link rel="shortcut icon" href="/favicon.ico" /> -->
+    
+    <!-- 重设css -->
+    <!-- <link  rel="stylesheet" href="../css/normalize.css"> -->
+<!-- </head>
+<body>
+<a href="">我的链接</a>
+<a>我的链接</a>
+<script>
+
+</script>
+</body>
+</html> -->

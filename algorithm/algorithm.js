@@ -696,3 +696,43 @@ var lengthOfLastWord = function(s) {
     }
     return max
 };
+
+/**
+ * @param {number} n
+ * @return {number[][]}
+ */
+var generateMatrix = function(n) {
+    let arr = []
+    let len = n*n
+    let num = 1
+    let rowBegin = 0
+    let rowEnd =  n - 1
+    let colBegin = 0
+    let colEnd = n - 1
+    
+    for (let i = 0; i < n; i++) {
+        arr[i] = new Array()
+    }
+    while (num <= len) {
+        for (let i = rowBegin; i <= rowEnd; i++) {
+            arr[rowBegin][i] = num++
+        }
+        rowBegin++
+        
+        for (let i = rowBegin; i <= rowEnd; i++) {
+            arr[i][colEnd] = num++
+        }
+        colEnd--
+        
+        for (let i = colEnd; i >= colBegin; i--) {
+            arr[rowEnd][i] = num++
+        }
+        rowEnd--
+        
+        for(let i = rowEnd; i >= rowBegin; i--) {
+            arr[i][colBegin] = num++
+        }
+        colBegin++; // move right one column
+    }
+    return arr
+};
