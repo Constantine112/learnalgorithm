@@ -736,3 +736,123 @@ var generateMatrix = function(n) {
     }
     return arr
 };
+
+/**
+ * @param {number[]} digits
+ * @return {number[]}
+ */
+var plusOne = function(digits) {
+    digits[digits.length - 1] += 1
+    i = 1
+
+    while (digits[digits.length - i] > 9) {
+
+        digits[digits.length - i] %= 10 
+
+        if (digits.length == i) {
+            digits.unshift(1)
+        } else {
+            digits[digits.length - i - 1] += 1
+        }
+        i++
+    }
+    return digits
+};
+
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+var spiralOrder = function(matrix) {
+    let arr = []
+    if (matrix.length == 0) {
+        return arr
+    }
+    let len = matrix.length * matrix[0].length
+    let num = 1
+    let rowBegin = 0
+    let rowEnd =  matrix[0].length - 1
+    let colBegin = 0
+    let colEnd = matrix.length - 1
+    while (num <= len) {
+        for (let i = rowBegin; i <= rowEnd; i++) {
+            arr.push(matrix[rowBegin][i])
+            num++
+        }
+        rowBegin++
+        if (num > len) {
+            break
+        }
+        for (let i = colBegin + 1; i <= colEnd; i++) {
+            arr.push(matrix[i][rowEnd])
+            num++
+        }
+        colEnd--
+        if (num > len) {
+            break
+        }
+        for (let i = rowEnd - 1; i >= rowBegin - 1; i--) {
+            arr.push(matrix[colEnd + 1][i])
+            num++
+        }
+        rowEnd--
+        if (num > len) {
+            break
+        }
+        for(let i = colEnd; i >= rowBegin; i--) {
+            arr.push(matrix[i][rowBegin - 1])
+            num++
+        }
+        colBegin++; // move right one column
+    }
+    
+    return arr
+};
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+function add (arr, row, col, len, sum, max) {
+    if (col < len[0]) {
+        //向下
+        add(arr, row, col + 1, len, sum + arr[col + 1][row], max)
+    }
+    if (row < len[1]) {
+        //向右
+        add(arr, row + 1, col, len, sum + arr[col][row + 1], max)
+    }
+    if (row == len[1] && col == len[0]) {
+        if (max[0] == 0) {
+            max[0] = sum
+        }
+        max[0] = Math.min(max[0], sum)
+    }
+}
+var minPathSum = function(grid) {
+    // if (grid.length <= 0) {
+    //     return 0
+    // }
+    // let len = [grid.length - 1, grid[0].length - 1]    //第一个元素为高，第二个元素是宽
+    // let sum = grid[0][0]
+    // let sumArr = [0]
+    // add(grid, 0, 0, len, sum, sumArr)
+    
+    // return sumArr[0]
+    // write your code here
+        let m = grid.length;
+        let n = grid[0].length;
+        let dp = new Array();
+        for (let i = 0; i < m; i++) {
+            dp[i] = new Array();
+        }
+        dp[0][0] = grid[0][0];
+        for(let i=1;i<m;i++)
+            dp[i][0] = dp[i-1][0] + grid[i][0];
+        for(let j=1;j<n;j++)
+            dp[0][j] = dp[0][j-1] + grid[0][j];
+        for(let i=1;i<m;i++)
+            for(let j=1;j<n;j++)
+                dp[i][j] = Math.min(dp[i-1][j], dp[i][j-1]) + grid[i][j];
+        return dp[m-1][n-1];
+};
