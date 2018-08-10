@@ -856,3 +856,193 @@ var minPathSum = function(grid) {
                 dp[i][j] = Math.min(dp[i-1][j], dp[i][j-1]) + grid[i][j];
         return dp[m-1][n-1];
 };
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+function add2 (sum, number, target) {
+    if (sum <= target - 2) {
+        add2 (sum + 2, number, target)
+    }
+    if (sum <= target - 1) {
+        add2 (sum + 1, number, target)
+    }
+    if (sum == target) {
+        number[0]++
+    }
+}
+var climbStairs = function(n) {
+    // let number = [0]
+    // add2(0, number, n)
+    // return number[0]
+        if(n <= 2) return n;
+        let step = new Array();
+        step[1] = 1;
+        step[2] = 2;
+        for(let i = 3; i <= n; i++){
+            step[i] = step[i-1] + step[i-2];
+        }
+        return step[n];
+};
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+function ListNode(val) {
+    this.val = val;
+    this.next = null;
+}
+ let k = new ListNode(1)
+ k.next = new ListNode(1)
+ k.next.next = new ListNode(1)
+
+var deleteDuplicates = function(head) {
+    let numbers = []
+    let p = head
+    if (!p) return p
+    // console.log(p)
+    numbers.push(p.val)
+    while (p.next) {
+        for (let i = 0; i < numbers.length; i++) {
+            if (p.next && numbers[i] == p.next.val) {
+                p.next = p.next.next
+                i--
+            }
+            if (p.next && numbers.length - 1 == i) {
+                numbers.push(p.next.val)
+                break
+            }
+        }
+        p = p.next
+        if (!p) break
+    }
+    return head
+};
+deleteDuplicates(k)
+
+/**
+ * @param {string} a
+ * @param {string} b
+ * @return {string}
+ */
+var addBinary = function(a, b) {
+    // let asum = 0;
+    // let bsum = 0;
+    // if (a.length <= 0 || b.length <= 0) return 0
+    // for (let i = a.length - 1; i >= 0; i--) {
+    //     if (a[i] != '0') {
+    //         asum += Math.pow(2, a.length - i - 1)
+    //     }
+    // }
+    // for (let i = b.length - 1, j = 0; i >= 0; i--) {
+    //     if (b[i] != '0') {
+    //         bsum += Math.pow(2, b.length - i - 1)
+    //     }
+    // }
+    // asum += bsum
+    // return asum.toString(2)
+    // return '' + parseInt(asum, 2)
+    // 
+    // console.log(a[0] || 0)
+    if (a.length < 0 || b.length < 0) return 0
+    let i = a.length - 1
+    let j = b.length - 1
+    let sum = ''
+    let conut = false
+    while (i >= 0 && j >= 0) {
+        if (a[i] == '1' && b[j] == '1') {
+            if (conut == false) {
+                sum = '0' + sum
+            } else {
+                sum = '1' + sum
+            }
+            conut = true
+        } else if ((a[i] == '0' && b[j] == '1') || (b[j] == '0' && a[i] == '1')) {
+            if (conut == false) {
+                sum = '1' + sum
+                conut = false
+            } else {
+                sum = '0' + sum
+                conut = true
+            }
+        } else {
+            if (conut == false) {
+                sum = '0' + sum
+            } else {
+                sum = '1' + sum
+            }
+            conut = false
+        }
+        j--
+        i--
+    }
+
+    while (i >= 0) {
+        if (a[i] == '0') {
+            if (conut == false) {
+                sum = '0' + sum
+            } else {
+                sum = '1' + sum
+                conut = false
+            }
+        } else {
+            if (conut == false) {
+                sum = '1' + sum
+            } else {
+                sum = '0' + sum
+                conut = true
+            }
+        }
+        i--
+    }
+    while (j >= 0) {
+        if (b[j] == '0') {
+            if (conut == false) {
+                sum = '0' + sum
+            } else {
+                sum = '1' + sum
+                conut = false
+            }
+        } else {
+            if (conut == false) {
+                sum = '1' + sum
+            } else {
+                sum = '0' + sum
+                conut = true
+            }
+        }
+        j--
+    }
+    if (conut) {
+        sum = '1' + sum
+    }
+    return sum
+};
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function(nums1, m, nums2, n) {
+    if (n == 0 && m == 0) return 0
+    nums1.length = m
+    nums2.length = n
+    for (let i = 0; i < n; i++) {
+        nums1.push(nums2[i])
+    }
+    nums1.sort(function (a, b) {
+        return a - b
+    })
+    return nums1
+};

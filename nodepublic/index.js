@@ -17,8 +17,7 @@ let serveStaticFile = (res, path, contentType, responseCode) => {
 }
 http.createServer(function(req, res) {
     let  path = req.url.replace(/\/?(?:\?.*)?$/, '').toLowerCase();
-    
-    console.log(path);
+
     switch(path) {
         case '':    serveStaticFile(res, '/public/home.html', 'text/html', 200);
                     break;

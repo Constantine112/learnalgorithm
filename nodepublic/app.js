@@ -1,30 +1,31 @@
-import express from "express"
-import http from 'http'
-import fs from 'fs'
-
-const APP = express()
+// import express from "express";
+// import http from 'http';
+// import fs from 'fs';
+let express = require('express');
+const app = express()
 
 app.set('port', process.env.PORT || 3000)
 
-let serveStaticFile = (res, path, contentType, responseCode) => {
-    if (!responseCode) {
-        responseCode = 200;
-    }
-    // console.log(__dirname + path);
-    fs.readFile(__dirname + path, function(err, data) {
-        if (err) {
-            res.writeHead(500, { 'Content-Type': 'text/plain'});
-            res.end('500-Internal Error');
-        } else {
-            res.writeHead(responseCode, {'Content-Type': contentType});
-            res.end(data);
-        }
-    });
-}
-
 //404 page
-app.use(funtion (req, res) {
-	res.type('text/html')
-	res.status(404)
-	serveStaticFile(res, '/public/404.html', 'text/html', 404)
+// app.use(funtion(req, res){
+//     res.type('text/plain')
+//     res.status(404)
+//     // serveStaticFile(res, '/public/404.html', 'text/html', 404)
+//     res.send('404 - Not Found') 
+// })
+require('./routes/getData.js')(app)
+app.use(function (req, res) {
+    res.type('text/plain')
+    res.status(404)
+    // serveStaticFile(res, '/public/404.html', 'text/html', 404)
+    res.send('404 - Not Found') 
+})
+app.use(function (err, req, res, next) {
+    console.log(err.stack)
+    res.type('text/plain')
+    res.status(500)
+    res.send("500 - server Error")
+})
+app.listen(app.get('port'), function () {
+    console.log('server startrd on localhost:' + app.get('port') + '; press Ctrl-c to terminate')
 })
