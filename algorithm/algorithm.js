@@ -1046,3 +1046,25 @@ var merge = function(nums1, m, nums2, n) {
     })
     return nums1
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+let isSame = function (p, q) {
+    if (p == null && q == null) return true
+    if (p == null || q == null) return false
+    if (p.val !== q.val) return false
+    else return isSame(p.left, q.left) && isSame(p.right, q.right)
+}
+/**
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
+ */
+var isSameTree = function(p, q) {
+    isSame(p, q)
+};
